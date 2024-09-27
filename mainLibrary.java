@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class mainLibrary {
-    public static void main(String[] args) {
+    public static void main(String[]args) {
         Book[] book = new Book[3];
         User user = new User(null, 0);
         Scanner scan = new Scanner(System.in);
@@ -16,11 +16,14 @@ public class mainLibrary {
             lib.addBook(book[i]);
         }
 
-        System.out.print("Name: ");
+        System.out.print( "Name: ");
         String name = scan.next();
         System.out.print("Age: ");
         int age = scan.nextInt();
         scan.nextLine();
+        System.out.print("What book to search: ");
+        String uTitile = scan.nextLine();
+        lib.serachByTitle(uTitile);
 
         lib.displayLibrary();
 

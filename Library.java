@@ -11,33 +11,30 @@ public class Library {
             b.add(book);
     }
     
-    // public void displayLibrary(){
-    //     for(Book bo: b){
-    //         System.err.println("Book : " + bo.getTitle());
-    //     }
-    // }
-
-    // public void serachByTitle(String title){
-    //     for(Book bo: b){
-    //         if (user.getBookTitle().equalsIgnoreCase(bo.getTitle())){
-                
-    //         }
+    public void serachByTitle(String title){
+        for(Book bo: b){
+            if (title.equalsIgnoreCase(bo.getTitle())){
+                System.out.println("The book is available");
+                break;
+            }else{
+                System.out.println("The book is unavailable");
+                break;
+            }
             
-    //     }
-    // }
+        }
+    }
 
     public void borrowBook(String userB){
         for(Book bo: b){
             if (userB.equalsIgnoreCase(bo.getTitle())) {
-                System.out.println("The book is available");
-                if (book.getIsAvailable()) {
-                    book.setIsAvailable(false);
+                if (bo.getIsAvailable()) {
+                    bo.setIsAvailable(false);
                     user.setBook(bo.getTitle());
                     System.out.println("\nYou have successfully borrowed: " + bo.getTitle());
                     break;
                 } else {
                     System.out.println("\nSorry, the book is currently unavailable.");
-                    break;
+
                 }
             }else{
                 System.out.println("\nSorry, the book is currently unavailable.");
