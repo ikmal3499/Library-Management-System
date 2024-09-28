@@ -6,15 +6,12 @@ public class User {
     private String name;
     private int age;
     private String  bookTitle;
-    private String book;
-    // ArrayList<String> borrowedBooks = new ArrayList<>();
+    ArrayList<String> borrowedBooks = new ArrayList<>();
+    ArrayList<LocalDate> borrowedDate = new ArrayList<>();
+    ArrayList<LocalDate> borrowedDue = new ArrayList<>();
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM-dd-yyy");
     
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyy");
-    LocalDate now = LocalDate.now().plusDays(14);
-    String Date = formatter.format(now);
-
     //---constructer
     public User(String name, int age){
         this.name = name;
@@ -31,6 +28,9 @@ public class User {
     public String getBookTitle(){
         return bookTitle;
     }
+    public String getBook(){
+        return bookTitle;
+    }
 
     //---Setter
     public void setName(String name){
@@ -42,47 +42,83 @@ public class User {
     public void setBookTitle(String bookTitle){
         this.bookTitle = bookTitle;
     }
-    public void setBook(String book){
-        this.book = book;
+
+    // ---method
+    public void updateBook(String bookTitle){
+        borrowedBooks.add(bookTitle);
     }
 
-    //---method
-    // public void borrowBook(String bookTitle){
-    //     borrowedBooks.add(bookTitle);
-    // }
+    public void updateDate(LocalDate newDate){
+        borrowedDate.add(newDate);
+        updateDue();
+    }
 
-    // public void returnBook(String bookTitle){
-    //     for(String b: borrowedBooks){
-    //         borrowedBooks.remove(bookTitle);
-    //     }
-    // }
+    public void updateDue(){
+        for(int i=0; i<borrowedDate.size(); i++){
+            LocalDate due = borrowedDate.get(i).plusDays(14);
+            borrowedDue.add(due);
+        }
+    }
 
-    // public void checkedOverDueDates(){
-    //     for(int i=0; i<borrowedBooks.size(); i++){
+    public void returnBook(String bukuTitle){
+        boolean found =false;
+        int i=0;
+        while(i<borrowedBooks.size() && !found){
+            if(bukuTitle.equalsIgnoreCase(borrowedBooks.get(i))){
+                found = true;
+                
+                System.out.println("The book " + borrowedBooks.get(i) + " has been returned");
+                borrowedBooks.remove(i);
+                checkedOverDueDates(borrowedDate.get(i), borrowedDue.get(i));
+                
+            }
+            i++;
+        }
+        if(!found)
+            System.out.println("The book was not found");
+    }
 
-    //     }
-    // }
+    //sambung later
+    public void checkedOverDueDates(LocalDate date, LocalDate due){
+        boolean found =false;
+        int i=0;
+        while(i<borrowedDate.size() && !found){
+            if(date.compareTo(due)>0){
+                System.out.println("This book is overdue");
+                found = true;
+            }else{
+                System.out.println("The book have been returned within due");
+                
+            }
+            i++;
+        }
+        if(!found)
+            System.out.println("The book was not found");
 
-    // public void displayDetails(){
-    //     System.out.println("User: " + name);
-    //     for(int i=0; i<borrowedBooks.size(); i++){
-    //         System.out.println("Borrowed " + borrowedBooks.get(i));
-    //     }
-    //     System.out.println("Due date : " + now);
-    // }
+
+        // for(int i=0; i<borrowedDate.size(); i++){
+        //     if(date.compareTo(due)>0){
+        //         System.out.println("This book is overdue");
+        //     }else{
+        //         System.out.println("The book have been returned within due");
+        //     }
+        // }
+    }
 
     public void displayDetails() {
         System.out.println("\nUser: " + name);
-        System.out.println("Borrowed Books: " + bookTitle);
-        System.out.println("Due date : " + Date);
-        // if (borrowedBooks.size() > 0) {
-        //     System.out.println("Borrowed Books: ");
-        //     for (String b : borrowedBooks) {
-        //         System.out.println("- " + b);
-        //     }
-        //     System.out.println("Due Date: " + Date);
-        // } else {
-        //     System.out.println("No borrowed books.");
-        // }
+        if (borrowedBooks.size() > 0){
+            System.out.println("Borrowed Books:- ");
+            for(int i=0; i<borrowedBooks.size(); i++){
+                String book = borrowedBooks.get(i);
+                String Due = formatter.format(borrowedDue.get(i));
+                String Date = formatter.format(borrowedDate.get(i));
+                System.out.println(" - " + book + "   Date borrowed: " + Date + "   Due Date: " + Due);
+            }
+            
+        }else{
+            System.out.println("No borrowed books.");
+        }
+        
     }
 }

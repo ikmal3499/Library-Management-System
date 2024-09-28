@@ -1,47 +1,50 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Library {
 
     private ArrayList<Book> b = new ArrayList<>();
-
-    Book book = new Book(null, null, null);
-    User user = new User(null, 0);
+    LocalDate now = LocalDate.now();
 
     public void addBook(Book book){
             b.add(book);
     }
     
     public void serachByTitle(String title){
-        for(Book bo: b){
-            if (title.equalsIgnoreCase(bo.getTitle())){
+        boolean found =false;
+        int i=0;
+        while(i<b.size() && !found){
+            if (title.equalsIgnoreCase(b.get(i).getTitle())) {
                 System.out.println("The book is available");
-                break;
-            }else{
-                System.out.println("The book is unavailable");
-                break;
+                found = true;
             }
-            
+            i++;
+        }
+        if(!found){
+            System.out.println("\nSorry, the book is not found.");
         }
     }
 
-    public void borrowBook(String userB){
-        for(Book bo: b){
-            if (userB.equalsIgnoreCase(bo.getTitle())) {
-                if (bo.getIsAvailable()) {
-                    bo.setIsAvailable(false);
-                    user.setBook(bo.getTitle());
-                    System.out.println("\nYou have successfully borrowed: " + bo.getTitle());
-                    break;
-                } else {
+    public void borrowBook(String userB, User user){
+        boolean found =false;
+        int i=0;
+        while(i<b.size() && !found){
+            if (userB.equalsIgnoreCase(b.get(i).getTitle())) {
+                if (b.get(i).getIsAvailable()) {
+                    b.get(i).setIsAvailable(false);
+                    user.updateBook(b.get(i).getTitle());
+                    user.updateDate(now);
+                    System.out.println("\nYou have successfully borrowed: " + b.get(i).getTitle());
+                }else{
                     System.out.println("\nSorry, the book is currently unavailable.");
-
                 }
-            }else{
-                System.out.println("\nSorry, the book is currently unavailable.");
-                break;
+                found = true;
             }
+            i++;
         }
-        
+        if(!found){
+            System.out.println("\nSorry, the book is not found.");
+        }
     }
 
     public void displayLibrary() {
