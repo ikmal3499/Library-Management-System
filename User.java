@@ -74,8 +74,10 @@ public class User {
             }
             i++;
         }
-        if(!found)
+        if(!found){
             System.out.println("The book was not found");
+        }
+            
     }
 
     //sambung later
@@ -85,15 +87,18 @@ public class User {
         while(i<borrowedDate.size() && !found){
             if(date.compareTo(due)>0){
                 System.out.println("This book is overdue");
-                found = true;
+                
             }else{
                 System.out.println("The book have been returned within due");
                 
             }
+            found = true;
             i++;
         }
-        if(!found)
+        if(!found){
             System.out.println("The book was not found");
+        }
+           
 
 
         // for(int i=0; i<borrowedDate.size(); i++){

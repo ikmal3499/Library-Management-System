@@ -15,7 +15,12 @@ public class Library {
         int i=0;
         while(i<b.size() && !found){
             if (title.equalsIgnoreCase(b.get(i).getTitle())) {
-                System.out.println("The book is available");
+                if (b.get(i).getIsAvailable()){
+                    System.out.println("The book is available");
+                    
+                }else{
+                    System.out.println("The book is unavailable");
+                }
                 found = true;
             }
             i++;
