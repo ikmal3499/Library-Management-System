@@ -6,30 +6,33 @@ public class Library {
     private ArrayList<Book> b = new ArrayList<>();
     LocalDate now = LocalDate.now();
 
+    //---add books into library
     public void addBook(Book book){
             b.add(book);
     }
     
+    //---search book method
     public void serachByTitle(String title){
         boolean found =false;
         int i=0;
         while(i<b.size() && !found){
             if (title.equalsIgnoreCase(b.get(i).getTitle())) {
                 if (b.get(i).getIsAvailable()){
-                    System.out.println("The book is available");
+                    System.out.println("  The book is available");
                     
                 }else{
-                    System.out.println("The book is unavailable");
+                    System.out.println("  The book is unavailable");
                 }
                 found = true;
             }
             i++;
         }
         if(!found){
-            System.out.println("\nSorry, the book is not found.");
+            System.out.println("  Sorry, the book is not found.");
         }
     }
 
+    //---borrow book method
     public void borrowBook(String userB, User user){
         boolean found =false;
         int i=0;
@@ -39,19 +42,20 @@ public class Library {
                     b.get(i).setIsAvailable(false);
                     user.updateBook(b.get(i).getTitle());
                     user.updateDate(now);
-                    System.out.println("\nYou have successfully borrowed: " + b.get(i).getTitle());
+                    System.out.println("  You have successfully borrowed: " + b.get(i).getTitle());
                 }else{
-                    System.out.println("\nSorry, the book is currently unavailable.");
+                    System.out.println("  Sorry, the book is currently unavailable.");
                 }
                 found = true;
             }
             i++;
         }
         if(!found){
-            System.out.println("\nSorry, the book is not found.");
+            System.out.println("  Sorry, the book is not found.");
         }
     }
 
+    //---display list of books in the library
     public void displayLibrary() {
         System.out.println();
         System.out.println("Available Books in Library");
@@ -60,5 +64,4 @@ public class Library {
         }
         System.out.println();
     }
-    
 }

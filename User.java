@@ -43,7 +43,7 @@ public class User {
         this.bookTitle = bookTitle;
     }
 
-    // ---method
+    // ---method update for all of the arraylist
     public void updateBook(String bookTitle){
         borrowedBooks.add(bookTitle);
     }
@@ -60,6 +60,7 @@ public class User {
         }
     }
 
+    //---return book method
     public void returnBook(String bukuTitle){
         boolean found =false;
         int i=0;
@@ -67,51 +68,43 @@ public class User {
             if(bukuTitle.equalsIgnoreCase(borrowedBooks.get(i))){
                 found = true;
                 
-                System.out.println("The book " + borrowedBooks.get(i) + " has been returned");
+                LocalDate returnDate = LocalDate.now();
+                System.out.println("  The book " + borrowedBooks.get(i) + " has been returned");
                 borrowedBooks.remove(i);
-                checkedOverDueDates(borrowedDate.get(i), borrowedDue.get(i));
+                checkedOverDueDates(returnDate, borrowedDue.get(i));
                 
             }
             i++;
         }
         if(!found){
-            System.out.println("The book was not found");
+            System.out.println("  The book was not found");
         }
-            
     }
 
-    //sambung later
-    public void checkedOverDueDates(LocalDate date, LocalDate due){
+    //---checked overdue method
+    public void checkedOverDueDates(LocalDate returnDate, LocalDate due){
         boolean found =false;
         int i=0;
         while(i<borrowedDate.size() && !found){
-            if(date.compareTo(due)>0){
-                System.out.println("This book is overdue");
+            if(returnDate.compareTo(due)>0){
+                System.out.println("  This book is overdue");
                 
             }else{
-                System.out.println("The book have been returned within due");
+                System.out.println("  The book have been returned within due");
                 
             }
             found = true;
             i++;
         }
         if(!found){
-            System.out.println("The book was not found");
+            System.out.println("  The book was not found");
         }
-           
-
-
-        // for(int i=0; i<borrowedDate.size(); i++){
-        //     if(date.compareTo(due)>0){
-        //         System.out.println("This book is overdue");
-        //     }else{
-        //         System.out.println("The book have been returned within due");
-        //     }
-        // }
     }
 
+    //---display method
     public void displayDetails() {
-        System.out.println("\nUser: " + name);
+        System.out.println();
+        System.out.println("User: " + name);
         if (borrowedBooks.size() > 0){
             System.out.println("Borrowed Books:- ");
             for(int i=0; i<borrowedBooks.size(); i++){

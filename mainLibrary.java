@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class mainLibrary {
 
     public static void populateLibrary(Library lib){
-        String[] title = {"Harry Potter", "Lord of the Rings", "Percy Jackson"};
-        String[] author = {"J. K. Rowling", "J.R.R. Tolkien", "Rick Riordan"};
-        String[] isbn = {"abc123", "def456", "ghi789"};
+        String[] title = {"Harry Potter", "Lord of the Rings", "Percy Jackson", "Narnia"};
+        String[] author = {"J. K. Rowling", "J.R.R. Tolkien", "Rick Riordan", "C. S. Lewis"};
+        String[] isbn = {"abc123", "def456", "ghi789", "jkl012"};
 
         for(int i=0; i<title.length; i++){
             Book book = new Book(title[i], author[i], isbn[i]);
@@ -53,7 +53,9 @@ public class mainLibrary {
             String yn = "yes";
 
             if(op == 1){
-                
+                System.out.println("-------------------------------------------");
+                System.out.println("----------------Borrow Book----------------");
+                System.out.println();
                 while(yn.equalsIgnoreCase("yes")){
                     System.out.print("  Book to borrow: ");
                     buku = scan.nextLine();
@@ -64,6 +66,9 @@ public class mainLibrary {
                 }
                 
             }else if(op == 2){
+                System.out.println("-------------------------------------------");
+                System.out.println("----------------Return Book----------------");
+                System.out.println();
                 while(yn.equalsIgnoreCase("yes")){
                     System.out.print("  Book to return: ");
                     returnBuku = scan.nextLine();
@@ -74,6 +79,9 @@ public class mainLibrary {
                 }
     
             }else if(op == 3){
+                System.out.println("-------------------------------------------");
+                System.out.println("----------------Search Book----------------");
+                System.out.println();
                 while(yn.equalsIgnoreCase("yes")){
                     System.out.print("  What book to search: ");
                     String uTitile = scan.nextLine();
@@ -87,6 +95,10 @@ public class mainLibrary {
         }while(op != 9);
 
         user.displayDetails();
+        System.out.println();
         System.out.print("  Thank You. Have a nice day :) ");
+        System.out.println();
+        System.out.println("----------------End of System----------------");
+        System.out.println("_____________________________________________");
     }
 }
