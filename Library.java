@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Library {
@@ -40,9 +41,16 @@ public class Library {
             if (userB.equalsIgnoreCase(b.get(i).getTitle())) {
                 if (b.get(i).getIsAvailable()) {
                     b.get(i).setIsAvailable(false);
+
                     user.updateBook(b.get(i).getTitle());
                     user.updateDate(now);
+                    
+                    LocalDate DueDate = LocalDate.now().plusDays(14);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM-dd-yyy");
+                    String Due = formatter.format(DueDate);
+
                     System.out.println("  You have successfully borrowed: " + b.get(i).getTitle());
+                    System.out.println("                        Due Date: " + Due);
                 }else{
                     System.out.println("  Sorry, the book is currently unavailable.");
                 }

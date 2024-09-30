@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class User {
     ArrayList<LocalDate> borrowedDue = new ArrayList<>();
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM-dd-yyy");
+    
     
     //---constructer
     public User(String name, int age){
@@ -60,6 +62,15 @@ public class User {
         }
     }
 
+    public void period(){
+        for(int i=0; i<borrowedDate.size(); i++){
+            Period period = Period.between(borrowedDate.get(i), borrowedDue.get(i));
+            System.out.println(period);
+        }
+    }
+
+    
+
     //---return book method
     public void returnBook(String bukuTitle){
         boolean found =false;
@@ -88,9 +99,12 @@ public class User {
         while(i<borrowedDate.size() && !found){
             if(returnDate.compareTo(due)>0){
                 System.out.println("  This book is overdue");
-                
+                System.out.print("  Days overDue: ");
+                period();
             }else{
                 System.out.println("  The book have been returned within due");
+                System.out.print("  Days within due: ");
+                period();
                 
             }
             found = true;
